@@ -24,7 +24,7 @@ return new class extends Migration
             // to define a foreign key we say
             // $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
 
-            // a simple relationship that will replaces line 18 and 24
+            // a simple relationship that will do exactly the same thing as line 18 and 25
             $table->foreignId('book_id')->constrained()->cascadeOnDelete();
         });
     }

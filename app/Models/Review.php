@@ -9,6 +9,9 @@ class Review extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['review', 'rating'];
+
+    // telling laravel about the relationship
     public function book()
     {
         return $this->belongsTo(Book::class);
