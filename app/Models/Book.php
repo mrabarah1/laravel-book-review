@@ -13,6 +13,7 @@ class Book extends Model
     
     // let tell laravel about this relationship
     // this is done by adding methods to the models
+    // Means the Book can have many reviews
     /**
      * Get the reviews for a particular book
      */
@@ -28,7 +29,12 @@ class Book extends Model
 
     public function scopePopular(Builder $query, $from = null, $to = null): Builder|QueryBuilder
     {
-        return $query->withCount("reviews")->orderBy("reviews_count", "desc");
+        return $query->withCount(["reviews" => function (Builder $q) use($from, $to) {
+            if ($from && !$to) {
+                $q->where("created_at", ">=", $from);
+            }
+
+        }])->orderBy("reviews_count", "desc");
     }
 
     public function scopeHighestRated(Builder $query): Builder|QueryBuilder 
